@@ -1,6 +1,6 @@
 # GradientSemantic
 ## How the Approach works:
-1. If the type is inconsistent (TBox inconsistency)
+1. If the type is inconsistent (TBox inconsistency)\
    If a derefied fact violates class hierarchy rules or property constraints, we should effectively consider the hasTruthValue to be 0.0 and stop checking for that triplet.
 2. If the type is consistent (TBox consistency)
    If the triplet respects the hierarchy and domains/scopes, this means that the fact is possible, but not necessarily true. You must then continue the analysis in the reference graph (refKG.nt):
@@ -8,7 +8,7 @@
    * Proximity analysis (Random Walks): If the fact is not explicit, use algorithms such as PageRank or Random Walks to measure the ‘proximity’ between the subject and the object in the graph. Strong indirect connectivity increases the truthfulness score.
    * Semantic coherence: Check whether the two entities share common neighbours or types of links similar to those observed for other valid pairs in the training data.
 
-3. Using Training Data for the final score
+3. Using Training Data for the final score\
    Training Data is used to calibrate our scoring function.
    * For consistent facts that are not in the graph, we will obtain indices (e.g. ‘distance of 2’, ‘typicality of 0.6’).
    * By observing the facts marked ‘1.0’ or ‘0.0’ in the training data, we determine the weights to give to each index. For example, we might learn that a fact with high ‘Support’ (the pattern appears often in the KG) is almost always true, even if the distance in the graph is large.
@@ -20,4 +20,6 @@
    5. Weight (Training Data): Apply the weights learned on the training set to produce a final score between 0.0 and 1.0.
 
 # How to run:
-- Requirements: - Java 
+- Requirements: 
+  * Java 17 or above
+  * Maven 3.8.x
