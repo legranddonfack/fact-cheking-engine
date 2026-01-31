@@ -1,0 +1,7 @@
+# Default ignored files
+data/
+*.ttl
+target/
+.idea/
+*.class
+.mvn/wrapper/maven-wrapper.jar
