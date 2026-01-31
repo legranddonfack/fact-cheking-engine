@@ -1,9 +1,10 @@
+package org.sw;
 
-import entities.DomainRangeInfo;
-import entities.FeatureVector;
-import entities.FeatureWeights;
-import entities.LabeledFact;
-import entities.ReifiedStatement;
+import org.sw.entities.DomainRangeInfo;
+import org.sw.entities.FeatureVector;
+import org.sw.entities.FeatureWeights;
+import org.sw.entities.LabeledFact;
+import org.sw.entities.ReifiedStatement;
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.rdf.model.*;
@@ -17,6 +18,12 @@ import java.io.*;
 import java.util.*;
 
 public class FactChecker {
+
+    static {
+        // Initialize ARQ before ANY Jena/TDB operations
+        ARQ.init();
+    }
+
     // Constants
     private static final Property HAS_TRUTH_VALUE = ResourceFactory.createProperty(
         "http://swc2017.aksw.org/hasTruthValue");
@@ -37,10 +44,6 @@ public class FactChecker {
     private Map<String, Set<String>> subclassCache = new HashMap<>();
     private Map<String, Set<String>> typeCache = new HashMap<>();
     private Map<String, DomainRangeInfo> domainRangeCache = new HashMap<>();
-    
-    // Model learned from training data
-    private Map<String, FeatureWeights> featureWeights = new HashMap<>();
-    private Map<String, Double> predicateBaseline = new HashMap<>();
 
     // Store learned weights per predicate
     private Map<String, FeatureWeights> predicateWeights = new HashMap<>();
@@ -644,7 +647,7 @@ public class FactChecker {
             return 0.5; // Default value
         }
         
-        // Simplified: more typed entities = more typical
+        // Simplified: more typed org.sw.entities = more typical
         return Math.min(1.0, subjectTypes.size() / 10.0);
     }
 

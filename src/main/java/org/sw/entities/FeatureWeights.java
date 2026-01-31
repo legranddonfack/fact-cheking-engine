@@ -1,4 +1,4 @@
-package entities;
+package org.sw.entities;
 
 public class FeatureWeights {
 	public double wSupport = 0.1;

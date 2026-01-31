@@ -6,7 +6,7 @@
    If the triplet respects the hierarchy and domains/scopes, this means that the fact is possible, but not necessarily true. You must then continue the analysis in the reference graph (refKG.nt):
    * Direct verification: Check whether the triplet exists as is in the graph. If it is present, the score is 1.0.
    * Proximity analysis (Random Walks): If the fact is not explicit, use algorithms such as PageRank or Random Walks to measure the ‘proximity’ between the subject and the object in the graph. Strong indirect connectivity increases the truthfulness score.
-   * Semantic coherence: Check whether the two entities share common neighbours or types of links similar to those observed for other valid pairs in the training data.
+   * Semantic coherence: Check whether the two org.sw.entities share common neighbours or types of links similar to those observed for other valid pairs in the training data.
 
 3. Using Training Data for the final score\
    Training Data is used to calibrate our scoring function.
@@ -22,4 +22,13 @@
 # How to run:
 - Requirements: 
   * Java 17 or above
-  * Maven 3.8.x
+  * Maven 3.5.x
+
+   ### To compile the project:
+  - `mvn clean compile`
+  ### To build a jar file:
+  - `mvn clean package`\
+  The generated jar file should be in the folder ./target
+  - run `java -jar fact-checking-1.0-SNAPSHOT.jar ./data ./data/fokg-sw-train-2024.nt ./data/fokg-sw-test-2024.nt ./result.ttl`
+  to execute, assuming the training and the test data are in the `./data` directory.
+  - Place both `classHierarchy.nt` and `reference-kg.nt` in the <data_dir>

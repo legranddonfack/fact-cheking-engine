@@ -1,4 +1,4 @@
-package entities;
+package org.sw.entities;
 
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;

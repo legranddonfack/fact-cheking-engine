@@ -1,4 +1,4 @@
-package entities;
+package org.sw.entities;
 
 public class FeatureVector {
 	public double predicateSupport;
