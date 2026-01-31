@@ -29,7 +29,6 @@ public class FactChecker {
         "http://swc2017.aksw.org/hasTruthValue");
     private static final RDFDatatype DOUBLE_TYPE = XSDDatatype.XSDdouble;
     
-    // RDF reification
     private static final Property RDF_SUBJECT = RDF.subject;
     private static final Property RDF_PREDICATE = RDF.predicate;
     private static final Property RDF_OBJECT = RDF.object;
@@ -89,7 +88,12 @@ public class FactChecker {
         System.out.println("Reference KG size: " + referenceKG.size() + " triples");
         System.out.println("Class hierarchy size: " + classHierarchy.size() + " triples");
     }
-    
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
     private Model loadModel(String filePath) {
         Model model = ModelFactory.createDefaultModel();
         FileManager.get().readModel(model, filePath);
@@ -133,7 +137,7 @@ public class FactChecker {
     }
     
     /**
-     * STEP 1: Learn model weights from training data
+     * Learn model weights from training data
      */
     public void train(String trainingFile) {
         Model trainingModel = loadModel(trainingFile);
@@ -254,16 +258,16 @@ public class FactChecker {
 
                     // Progress indicator
                     if (extracted % 100 == 0) {
-                        System.out.printf("    Extracted features for %d/%d facts\n",
+                        System.out.printf("Extracted features for %d/%d facts\n",
                                 extracted, predicateFacts.size());
                     }
                 } catch (Exception e) {
-                    System.err.println("    Error extracting features for fact: " + e.getMessage());
+                    System.err.println("Error extracting features for fact: " + e.getMessage());
                 }
             }
 
             if (extracted < 10) {
-                System.out.printf("    Too few valid features (%d), skipping\n", extracted);
+                System.out.printf("Too few valid features (%d), skipping\n", extracted);
                 skippedDueToSize++;
                 continue;
             }
@@ -300,7 +304,6 @@ public class FactChecker {
     public double checkFact(Resource subject, Property predicate, RDFNode object) {
         // Check TBox consistency
         if (!isTBoxConsistent(subject, predicate, object)) {
-            System.out.println("Semantic inconsistency returns 0");
             return 0.0; // STOP: Semantic inconsistency
         }
         
@@ -483,7 +486,7 @@ public class FactChecker {
         }
         
         // 6. Typicality (type similarity)
-        features.typicality = calculateTypicality(subject, predicate, object);
+        features.typicality = calculateTypicality(subject);
         
         return features;
     }
@@ -639,7 +642,7 @@ public class FactChecker {
         return 0.0;
     }
     
-    private double calculateTypicality(Resource subject, Property predicate, RDFNode object) {
+    private double calculateTypicality(Resource subject) {
         // Check if this predicate-type pattern is common
         Set<String> subjectTypes = getTypesWithInheritance(subject);
         

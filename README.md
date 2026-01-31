@@ -1,12 +1,12 @@
 # GradientSemantic
 ## How the Approach works:
 1. If the type is inconsistent (TBox inconsistency)\
-   If a derefied fact violates class hierarchy rules or property constraints, we should effectively consider the hasTruthValue to be 0.0 and stop checking for that triplet.
-2. If the type is consistent (TBox consistency)
-   If the triplet respects the hierarchy and domains/scopes, this means that the fact is possible, but not necessarily true. You must then continue the analysis in the reference graph (refKG.nt):
-   * Direct verification: Check whether the triplet exists as is in the graph. If it is present, the score is 1.0.
-   * Proximity analysis (Random Walks): If the fact is not explicit, use algorithms such as PageRank or Random Walks to measure the ‘proximity’ between the subject and the object in the graph. Strong indirect connectivity increases the truthfulness score.
-   * Semantic coherence: Check whether the two org.sw.entities share common neighbours or types of links similar to those observed for other valid pairs in the training data.
+   If a derefied fact violates class hierarchy rules or property constraints, we should consider the hasTruthValue to be 0.0 and stop checking for that triplet.
+2. If the type is consistent (TBox consistency)\
+   If the triplet respects the hierarchy and domains/scopes, this means that the fact is possible, but not necessarily true. We continue the analysis in the reference graph:
+   * Direct verification: We check whether the triplet exists as is in the graph. If it is present, the score is 1.0.
+   * Proximity analysis (Random Walks): If the fact is not explicit, we use Random Walks to measure the ‘proximity’ between the subject and the object in the graph. Strong indirect connectivity increases the truthfulness score.
+   * Semantic coherence: We check whether the two entities share common neighbours or types of links similar to those observed for other valid pairs in the training data.
 
 3. Using Training Data for the final score\
    Training Data is used to calibrate our scoring function.

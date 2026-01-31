@@ -4,11 +4,6 @@ import java.io.IOException;
 
 public class App {
 	public static void main(String[] args) {
-		System.out.println("args len " + args.length);
-		System.out.println("args: ");
-		for (String arg : args) {
-			System.out.println(arg);
-		}
         if (args.length < 4) {
             System.out.println("Usage: java -jar fact-checking.jar <data_dir> <train_file> <test_file> <output_file>");
             System.out.println("Example: java fact-checking-1.0-SNAPSHOT.jar ./data ./data/fokg-sw-train-2024.nt ./data/fokg-sw-test-2024.nt ./result.ttl");
